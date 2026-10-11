@@ -15,6 +15,7 @@ Try it once you are done:
 
 import util
 from problems import SearchProblem, mazeDistance
+from itertools import permutations
 
 
 class KeyHuntProblem(SearchProblem):
@@ -41,16 +42,18 @@ class KeyHuntProblem(SearchProblem):
         self._expanded = 0
         self._expandedOrder = []
         "*** YOUR CODE HERE (optional: set up anything else you need) ***"
+        # Not needed
 
     def getStartState(self):
-        """Returns the start state, a tuple (startPosition, ...)."""
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        """Returns the start state, a tuple (startPosition, remainingKeys)."""
+        # If Thomas starts on a code piece, it is collected already.
+        remaining = frozenset(k for k in self.keys if k != self.startPosition)
+        return (self.startPosition, remaining)
 
     def isGoalState(self, state):
         """True when every code piece has been collected AND Thomas is at the exit."""
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        position, remaining = state
+        return len(remaining) == 0 and position == self.exit
 
     def getSuccessors(self, state):
         """
@@ -65,8 +68,15 @@ class KeyHuntProblem(SearchProblem):
         self._expandedOrder.append(state[0])
 
         successors = []
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        position, remaining = state
+        for action, nextPosition in self.maze.neighbors(position):
+            stepCost = self.maze.cost(nextPosition)
+            if nextPosition in remaining:
+                # Stepping on a code piece collects it.
+                newRemaining = remaining - frozenset([nextPosition])
+            else:
+                newRemaining = remaining
+            successors.append(((nextPosition, newRemaining), action, stepCost))
         return successors
 
     # --- Provided: you do not need to change anything below -------------
@@ -93,22 +103,32 @@ class KeyHuntProblem(SearchProblem):
 
 
 def keyHuntHeuristic(state, problem):
-    """
-    Q9: A heuristic for KeyHuntProblem.
+    position, remaining = state[0], state[1]
+    cache = problem.heuristicInfo
+    memoKey = ('keyhunt', position, remaining)
+    if memoKey in cache:
+        return cache[memoKey]
+    exitPos = problem.exit
+    maze = problem.maze
+    def dist(a, b):
+        return mazeDistance(a, b, maze, cache)
+    if len(remaining) == 0:
+        # No keys left: only the walk to the exit remains.
+        value = dist(exitPos, position)
+    else:
+        value = float('inf')
+        # Try every possible order of visiting the remaining keys.
+        for order in permutations(remaining):
+            # walk from Thomas to the first key in this order
+            total = dist(order[0], position)
+            # walk from each key to the next one
+            for i in range(len(order) - 1):
+                total += dist(order[i], order[i + 1])
+            # finally walk from the last key to the exit
+            total += dist(exitPos, order[-1])
+            # keep the shortest order found so far
+            if total < value:
+                value = total
 
-    It must be CONSISTENT (and therefore admissible): for every state s and
-    successor s' reached with step cost c,  h(s) <= c + h(s'),  and h must be
-    0 at goal states. The grader checks this.
-
-    The more informed (larger) your heuristic is while staying consistent,
-    the fewer states A* expands and the more points you earn.
-
-    Useful tools:
-      * problem.keys, problem.exit, and whatever your state stores
-      * mazeDistance(pos1, pos2, problem.maze, problem.heuristicInfo) gives
-        the true number of steps between two cells, and caches the result
-      * util.manhattanDistance(pos1, pos2)
-    """
-    position = state[0]
-    "*** YOUR CODE HERE ***"
-    return 0   # the trivial (but consistent!) heuristic
+    cache[memoKey] = value
+    return value

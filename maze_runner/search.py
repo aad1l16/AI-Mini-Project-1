@@ -135,7 +135,7 @@ def depthLimitedSearch(problem, limit):
     by not revisiting a state that is already on the current path.
     """
     "*** YOUR CODE HERE ***"
-    return recursive_dls_helper(problem.getStartState(), [], set(problem.getStartState()), problem, limit)
+    return recursive_dls_helper(problem.getStartState(), [], {problem.getStartState()}), problem, limit)
     
 
 
