@@ -1,0 +1,131 @@
+COMMAND: python runner.py -l maze_medium --compare
+
+Medium maze - with loops  (21x41, problem: maze)
+Algorithm                           Path cost    Steps   Expanded  Time (s)
+---------------------------------------------------------------------------
+Depth-first search                        162      162        233     0.008
+Breadth-first search                       66       66        407     0.003
+Iterative deepening search                 66       66     437730     7.190
+Uniform-cost search                        66       66        407     0.006
+Greedy best-first search [manhattan]         80       80         81     0.001
+A* search [manhattan]                      66       66        209     0.003
+
+COMMAND: python runner.py -l open_glade --compare
+
+The Open Glade - lots of room to wander  (15x33, problem: maze)
+Algorithm                           Path cost    Steps   Expanded  Time (s)
+---------------------------------------------------------------------------
+Depth-first search                        234      234        322     0.017
+Breadth-first search                       32       32        344     0.004
+Iterative deepening search                  -        -     430423    10.001   (timed out after 10 seconds)
+Uniform-cost search                        32       32        344     0.021
+Greedy best-first search [manhattan]         36       36         39     0.001
+A* search [manhattan]                      32       32        114     0.005
+
+COMMAND: python runner.py -l ivy_maze --compare
+
+The Ivy Maze - thick ivy (3) and Griever territory (10)  (21x41, problem: maze)
+Algorithm                           Path cost    Steps   Expanded  Time (s)
+---------------------------------------------------------------------------
+Depth-first search                        159       88        422     0.021
+Breadth-first search                       80       60        439     0.008
+Iterative deepening search                  -        -     432311    10.000   (timed out after 10 seconds)
+Uniform-cost search                        70       64        418     0.024
+Greedy best-first search [manhattan]        130       82         85     0.002
+A* search [manhattan]                      70       64        344     0.010
+
+COMMAND: python runner.py -l maze_small --compare
+
+Small maze - no loops  (15x21, problem: maze)
+Algorithm                           Path cost    Steps   Expanded  Time (s)
+---------------------------------------------------------------------------
+Depth-first search                         50       50         82     0.019
+Breadth-first search                       50       50         53     0.001
+Iterative deepening search                 50       50       1352     0.040
+Uniform-cost search                        50       50         53     0.003
+Greedy best-first search [manhattan]         50       50         50     0.001
+A* search [manhattan]                      50       50         52     0.001
+
+COMMAND: python runner.py -l griever_alley --compare
+
+Griever Alley - the short way is not the safe way  (7x23, problem: maze)
+Algorithm                           Path cost    Steps   Expanded  Time (s)
+---------------------------------------------------------------------------
+Depth-first search                         56       20         20     0.014
+Breadth-first search                       56       20         42     0.001
+Iterative deepening search                 56       20        401     0.005
+Uniform-cost search                        42       28         50     0.001
+Greedy best-first search [manhattan]         56       20         20     0.000
+A* search [manhattan]                      42       28         40     0.001
+
+COMMAND: python runner.py -l greedy_trap --compare
+
+The Greedy Trap - the exit looks close...  (11x25, problem: maze)
+Algorithm                           Path cost    Steps   Expanded  Time (s)
+---------------------------------------------------------------------------
+Depth-first search                        121       85         94     0.011
+Breadth-first search                       52       25        183     0.003
+Iterative deepening search                  -        -     372041    10.000   (timed out after 10 seconds)
+Uniform-cost search                        25       25        177     0.003
+Greedy best-first search [manhattan]         52       25         60     0.001
+A* search [manhattan]                      25       25        155     0.003
+
+COMMAND: python runner.py -l maze_big --compare
+
+Big maze - the big one  (41x71, problem: maze)
+Algorithm                           Path cost    Steps   Expanded  Time (s)
+---------------------------------------------------------------------------
+Depth-first search                        264      264        395     0.013
+Breadth-first search                      124      124       1417     0.018
+Iterative deepening search                  -        -     660149    10.000   (timed out after 10 seconds)
+Uniform-cost search                       124      124       1417     0.014
+Greedy best-first search [manhattan]        206      206        247     0.003
+A* search [manhattan]                     124      124        679     0.008
+
+COMMAND: python runner.py -l maze_big --compare -H euclidean
+
+Big maze - the big one  (41x71, problem: maze)
+Algorithm                           Path cost    Steps   Expanded  Time (s)
+---------------------------------------------------------------------------
+Depth-first search                        264      264        395     0.009
+Breadth-first search                      124      124       1417     0.012
+Iterative deepening search                  -        -    1183614    10.000   (timed out after 10 seconds)
+Uniform-cost search                       124      124       1417     0.015
+Greedy best-first search [euclidean]        188      188        248     0.004
+A* search [euclidean]                     124      124        880     0.011
+
+COMMAND: python runner.py -l keys_tiny --compare -p keys
+
+The Griever Hole (tiny) - collect the code, then escape  (7x11, problem: keys)
+Algorithm                           Path cost    Steps   Expanded  Time (s)
+---------------------------------------------------------------------------
+Depth-first search                         66       66         67     0.006
+Breadth-first search                       26       26        490     0.004
+Iterative deepening search                 26       26      20126     0.209
+Uniform-cost search                        26       26        490     0.007
+Greedy best-first search [keyhunt]         26       26         26     0.004
+A* search [keyhunt]                        26       26         59     0.005
+
+COMMAND: python runner.py -l keys_small --compare -p keys
+
+The Griever Hole (small) - 4 code pieces  (11x21, problem: keys)
+Algorithm                           Path cost    Steps   Expanded  Time (s)
+---------------------------------------------------------------------------
+Depth-first search                        258      258        317     0.011
+Breadth-first search                       54       54       1723     0.019
+Iterative deepening search                  -        -    1220296    10.000   (timed out after 10 seconds)
+Uniform-cost search                        54       54       1723     0.013
+Greedy best-first search [keyhunt]         54       54         54     0.003
+A* search [keyhunt]                        54       54         91     0.004
+
+COMMAND: python runner.py -l keys_medium --compare -p keys
+
+The Griever Hole - FLOAT, CATCH, BLEED, DEATH, STRONG, PUSH  (15x31, problem: keys)
+Algorithm                           Path cost    Steps   Expanded  Time (s)
+---------------------------------------------------------------------------
+Depth-first search                        548      468        645     0.010
+Breadth-first search                       94       94       9878     0.064
+Iterative deepening search                  -        -    1066002    10.000   (timed out after 10 seconds)
+Uniform-cost search                        94       94       9695     0.299
+Greedy best-first search [keyhunt]         94       94         94     0.128
+A* search [keyhunt]                        94       94        117     0.119
